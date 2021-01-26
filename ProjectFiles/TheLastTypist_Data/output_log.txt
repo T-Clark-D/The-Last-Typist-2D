@@ -1,0 +1,28 @@
+Initialize engine version: 5.3.8p2 (702ec25c6a03)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX 970 (ID=0x13c2)
+    Vendor:   NVIDIA
+    VRAM:     4043 MB
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\Tomas\Documents\Unity Projects\The Last Typist\TheLastTypist_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Tomas\Documents\Unity Projects\The Last Typist\TheLastTypist_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Tomas\Documents\Unity Projects\The Last Typist\TheLastTypist_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Tomas\Documents\Unity Projects\The Last Typist\TheLastTypist_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\Tomas\Documents\Unity Projects\The Last Typist\TheLastTypist_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\Tomas\Documents\Unity Projects\The Last Typist\TheLastTypist_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\Tomas\Documents\Unity Projects\The Last Typist\TheLastTypist_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\Tomas\Documents\Unity Projects\The Last Typist\TheLastTypist_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+- Completed reload, in  0.179 seconds
+Platform assembly: C:\Users\Tomas\Documents\Unity Projects\The Last Typist\TheLastTypist_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\Tomas\Documents\Unity Projects\The Last Typist\TheLastTypist_Data\Managed\System.dll (this message is harmless)
+desktop: 1920x1080 144Hz; virtual: 5760x1203 at -1920,-123
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 0.726800 ms
+Setting up 3 worker threads for Enlighten.
+  Thread -> id: 41270 -> priority: 1 
+  Thread -> id: 39100 -> priority: 1 
+  Thread -> id: 408b8 -> priority: 1 
