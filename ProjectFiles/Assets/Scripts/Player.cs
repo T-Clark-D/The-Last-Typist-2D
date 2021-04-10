@@ -32,6 +32,8 @@ public class Player : MonoBehaviour
     Targetable currentTarget;
     private Vector3 aimDirection;
     private List<Targetable> targetedInstances;
+
+    AudioManager audioManager;
     void Start()
     {
         targetedInstances = new List<Targetable>();
@@ -40,6 +42,7 @@ public class Player : MonoBehaviour
         //SR = GetComponent<SpriteRenderer>();
         UIUpdates();
         canvasObj = GameObject.Find("Canvas");
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     //TODO
@@ -134,6 +137,7 @@ public class Player : MonoBehaviour
     void SwitchtoCombatMode()
     {
         CombatMode = true;
+        audioManager.Play("Combat Mode");
         anim.SetBool("isInCombatMode", true);
         //instantiate Gun
         //SR.sprite = combat;
@@ -155,6 +159,7 @@ public class Player : MonoBehaviour
     {
         anim.SetBool("isInCombatMode", false);
         CombatMode = false;
+        audioManager.Play("Default Mode");
         //SR.sprite = idle;
         Destroy(textInstance);
         //Destroy(gunInstance);

@@ -12,8 +12,8 @@ public abstract class Enemies :Targetable {
     public int speed = 0;
     public bool isDead = false;
     public float scale = 2f;
-    AudioSource gun;
 
+    AudioManager audioManager;
 
     public void InitializeEnemy()
     {
@@ -23,7 +23,7 @@ public abstract class Enemies :Targetable {
         canvasObj = GameObject.Find("Canvas");
         isTargetable = true;
         targetPosition = head.position + targetHeadOffset;
-        gun = GetComponent<AudioSource>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
     public void FlipDirection()
     {
@@ -94,7 +94,8 @@ public abstract class Enemies :Targetable {
     }
     public void Death()
     {
-        gun.Play(0);
+        audioManager.Play("Shotgun");
+        audioManager.Play("Zombie Death");
         isDead = true;
         Destroy(anim);
         ragDollTRansform();
