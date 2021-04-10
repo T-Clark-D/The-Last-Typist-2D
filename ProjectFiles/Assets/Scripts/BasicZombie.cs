@@ -9,7 +9,7 @@ public class BasicZombie : Enemies {
         head = transform.GetChild(0).GetChild(2).GetChild(0);
         InitializeEnemy();
         FlipDirection();
-        SetWordLength(0);
+        SetWordLength(3);
         instantiateText();
     }
     void Update()
