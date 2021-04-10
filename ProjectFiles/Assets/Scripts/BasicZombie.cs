@@ -21,6 +21,6 @@ public class BasicZombie : Enemies {
             updateTextLocation();
             Movement();
             FlipDirection();
-        } 
+        }
     }
 }

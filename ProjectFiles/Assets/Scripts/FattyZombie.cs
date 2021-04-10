@@ -10,7 +10,7 @@ public class FattyZombie : Enemies{
 		InitializeEnemy();
 		flipDirectionOther();
 		SetWordLength(5);
-		instantiateText();
+        instantiateText();
 	}
 	void Update () {
 		Zlayering();
