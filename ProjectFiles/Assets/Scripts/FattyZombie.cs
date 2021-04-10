@@ -5,11 +5,11 @@ public class FattyZombie : Enemies{
 		targetHeadOffset = new Vector3(0, 1.5f, 0);
 		targetTextOffset = new Vector3(2, 6, 0);
 		health = 1;
-		speed = 1;
+		speed = 10;
 		head = transform.GetChild(0).GetChild(0).GetChild(0);
 		InitializeEnemy();
 		flipDirectionOther();
-		SetWordLength(0);
+		SetWordLength(5);
 		instantiateText();
 	}
 	void Update () {
