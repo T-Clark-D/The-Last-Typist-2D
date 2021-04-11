@@ -1,0 +1,372 @@
+fileFormatVersion: 2
+guid: ba34e912b83d2cb4d9d013eb37e4a9c1
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1510091895725385295
+    second: last typist main character split side view_0
+  - first:
+      213: 1245004215098008339
+    second: last typist main character split side view_1
+  - first:
+      213: -8539408656604854013
+    second: last typist main character split side view_2
+  - first:
+      213: -3349940220603718551
+    second: last typist main character split side view_3
+  - first:
+      213: 7568705182649313879
+    second: last typist main character split side view_4
+  - first:
+      213: -7252044575575444802
+    second: last typist main character split side view_5
+  - first:
+      213: 8451631647310664269
+    second: last typist main character split side view_6
+  - first:
+      213: 2266523180360604607
+    second: last typist main character split side view_7
+  - first:
+      213: 6470278959198179258
+    second: last typist main character split side view_8
+  - first:
+      213: 7490422254111887581
+    second: last typist main character split side view_9
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: last typist main character split side view_0
+      rect:
+        serializedVersion: 2
+        x: 1400
+        y: 1307
+        width: 647
+        height: 367
+      alignment: 9
+      pivot: {x: 0.13324833, y: 0.5369464}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4668ee049ce4f410800000000000000
+      internalID: 1510091895725385295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: last typist main character split side view_1
+      rect:
+        serializedVersion: 2
+        x: 2132
+        y: 1345
+        width: 164
+        height: 263
+      alignment: 9
+      pivot: {x: 0.4999985, y: 0.8866723}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 313e7c0ccb4274110800000000000000
+      internalID: 1245004215098008339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: last typist main character split side view_2
+      rect:
+        serializedVersion: 2
+        x: 2393
+        y: 868
+        width: 840
+        height: 873
+      alignment: 9
+      pivot: {x: 0.46771532, y: 0.057341516}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3090c2f021ded7980800000000000000
+      internalID: -8539408656604854013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: last typist main character split side view_3
+      rect:
+        serializedVersion: 2
+        x: 3266
+        y: 653
+        width: 1006
+        height: 941
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9642f1c3e1f9281d0800000000000000
+      internalID: -3349940220603718551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: last typist main character split side view_4
+      rect:
+        serializedVersion: 2
+        x: 1419
+        y: 868
+        width: 337
+        height: 363
+      alignment: 9
+      pivot: {x: 0.097645745, y: 0.59338343}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75a687d4341790960800000000000000
+      internalID: 7568705182649313879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: last typist main character split side view_5
+      rect:
+        serializedVersion: 2
+        x: 1855
+        y: 79
+        width: 555
+        height: 724
+      alignment: 9
+      pivot: {x: 0.45113713, y: 0.08797628}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb2f689a1ef8b5b90800000000000000
+      internalID: -7252044575575444802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: last typist main character split side view_6
+      rect:
+        serializedVersion: 2
+        x: 3172
+        y: 360
+        width: 181
+        height: 270
+      alignment: 9
+      pivot: {x: 0.76219356, y: 0.34934038}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d42d66e543a3a4570800000000000000
+      internalID: 8451631647310664269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: last typist main character split side view_7
+      rect:
+        serializedVersion: 2
+        x: 3471
+        y: 32
+        width: 390
+        height: 353
+      alignment: 9
+      pivot: {x: 0.48261595, y: 0.8649104}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbb1590f2de447f10800000000000000
+      internalID: 2266523180360604607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: last typist main character split side view_8
+      rect:
+        serializedVersion: 2
+        x: 3863
+        y: 28
+        width: 388
+        height: 357
+      alignment: 9
+      pivot: {x: 0.4825257, y: 0.86082214}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abf01b0be6c0bc950800000000000000
+      internalID: 6470278959198179258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: last typist main character split side view_9
+      rect:
+        serializedVersion: 2
+        x: 4260
+        y: 124
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd0150aaa5353f760800000000000000
+      internalID: 7490422254111887581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
