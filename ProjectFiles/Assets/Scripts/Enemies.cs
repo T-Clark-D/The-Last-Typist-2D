@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 
 
-public abstract class Enemies :Targetable {
+public abstract class Enemies : Targetable {
     public int health;
     public Animator anim;
     public bool isLookingRight;
@@ -108,6 +108,7 @@ public abstract class Enemies :Targetable {
             sr.enabled = false;
         Destroy(textPrefabInstance);
         targetWord = "@@@@@@@@@@";
+        Destroy(gameObject, 5);
     }
 
     public void ragDollTRansform()
