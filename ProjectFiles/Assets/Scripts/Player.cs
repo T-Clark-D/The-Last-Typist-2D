@@ -139,7 +139,7 @@ public class Player : MonoBehaviour
         //SR.sprite = combat;
         gunPivotInstance = (GameObject)Instantiate(gunPivotContainer);
         gunPivotInstance.transform.SetParent(transform);
-        gunPivotInstance.transform.position = transform.position + new Vector3(0, -1.5f, 0);
+        gunPivotInstance.transform.position = transform.position + new Vector3(-1f, 0.4f, 0);
         gunPivotInstance.transform.GetChild(0).gameObject.layer = LayerMask.NameToLayer("player");
         textInstance = (GameObject)Instantiate(PlayertextPrefab);
         //textInstance.transform.parent = canvasObj.transform;
