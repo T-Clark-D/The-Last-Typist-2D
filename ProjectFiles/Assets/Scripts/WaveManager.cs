@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 public class WaveManager : MonoBehaviour
 {
-    readonly float roundTime = 20;
+    readonly float roundTime = 5;
 
     public Text timer;
     public Text waveNumber;
@@ -39,7 +39,7 @@ public class WaveManager : MonoBehaviour
     void Start()
     {
         audioManager = FindObjectOfType<AudioManager>();
-        currentWave = 8;
+        currentWave = 0;
         StartCoroutine("InitiateNextWave");
     }
 
@@ -70,7 +70,6 @@ public class WaveManager : MonoBehaviour
         waveNumber.text = "";
         timeLeft = roundTime;
         zombieTime();
-        
     }
 
     void spawnZombie(ZombieType type)
@@ -89,33 +88,18 @@ public class WaveManager : MonoBehaviour
 
     bool isRoundOver()
     {
-        //FlimsyZombie[] flimsies;
-        BasicZombie[] basics;
-        FattyZombie[] fatties;
-        //BuffZombie[] buffs;
+        Enemies[] basics;
 
-        //flimsies = FindObjectsOfType<FlimsyZombie>();
-        basics = FindObjectsOfType<BasicZombie>();
-        fatties = FindObjectsOfType<FattyZombie>();
-        //buffs = FindObjectsOfType<BuffZombie>();
+        basics = FindObjectsOfType<Enemies>();
 
-
-        /*foreach (FlimsyZombie i in flimsies)
-        {
-            if (i.isDead == false) return false;
-        }*/
-        foreach (BasicZombie i in basics)
+        //if (basics.Length! > 0) //This caused glitches
+          //  return true;
+        
+        foreach (Enemies i in basics)
         {
             if (i.isDead == false) return false;
         }
-        foreach (FattyZombie i in fatties)
-        {
-            if (i.isDead == false) return false;
-        }
-        /*foreach (BuffZombie i in buffs)
-        {
-            if (i.isDead == false) return false;
-        }*/
+
         zombiesDone = false;
         return true;
     }
@@ -123,13 +107,13 @@ public class WaveManager : MonoBehaviour
     void zombieTime()
     {
         baseZombies = (int)(17 + 3*currentWave);
-        
+
         ///Calculate the percent of each zombie and the resulting number
-        flimsyPercent = 720 / (currentWave + 8);
+        flimsyPercent = (float)(0.01 * (720 / (currentWave + 8)));
         float numFlimsy = baseZombies*flimsyPercent;
 
         if (currentWave < 39)
-            basicPercent = (float)((0.01)*(-0.09*currentWave*currentWave + 56));
+            basicPercent = (float)((0.01)*(-0.03*currentWave*currentWave + 56));
         else
             basicPercent = 1209 / currentWave + 4;
         float numBasic = baseZombies * basicPercent;
@@ -143,29 +127,31 @@ public class WaveManager : MonoBehaviour
 
         buffPercent = 0;
         if(currentWave > 24)
-            buffPercent = 2200/-currentWave + 90;
+            buffPercent = (float)(0.01 * ((2200 / -currentWave) + 90));
         float numBuff = baseZombies * buffPercent;
 
-        //startSpawning(ZombieType.Flimsy, numFlimsy);
+        waveNumber.text = numFlimsy.ToString() + "\n" + numBasic.ToString() + "\n" + numFatty.ToString() + "\n" + numBuff.ToString();
+
+        //StartCoroutine(startSpawning(ZombieType.Flimsy, numFlimsy));
         StartCoroutine(startSpawning(ZombieType.Basic, numBasic));
-        StartCoroutine(startSpawning(ZombieType.Fatty, numFatty));
-        //startSpawning(ZombieType.Buff, numBuff);
+        //StartCoroutine(startSpawning(ZombieType.Fatty, numFatty));
+        //StartCoroutine(startSpawning(ZombieType.Buff, numBuff));
     }
 
     IEnumerator startSpawning(ZombieType type, float numZombies)
     {
         if (numZombies != 0)
-        {
             while (timeLeft > 0)
             {
                 float rate = roundTime / numZombies;
+                spawnZombie(type);
                 yield return new WaitForSeconds(rate);
-                if (timeLeft > 0)
-                    spawnZombie(type);
             }
+        else
+            yield return new WaitForSeconds(timeLeft);
 
-            zombiesDone = true;
-        }
+        zombiesDone = true;
+
     }
 
 }
