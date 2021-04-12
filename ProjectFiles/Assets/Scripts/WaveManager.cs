@@ -11,9 +11,13 @@ public class WaveManager : MonoBehaviour
 
     public Text timer;
     public Text waveNumber;
+    public Text wordsPerMinute;
     public float currentWave;
     public float timeLeft;
     public bool isWaveOngoing = false;
+
+    static int zombiesKilled = 0;
+    public float totalTime = 0;
 
     public bool zombiesDone = false;
 
@@ -46,16 +50,22 @@ public class WaveManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        float deltaTime = Time.deltaTime;
+
         if (!isWaveOngoing)
             StartCoroutine("InitiateNextWave");
 
         if (timeLeft > 0)
         {
-            timeLeft -= Time.deltaTime;
+            timeLeft -= deltaTime;
+            totalTime += deltaTime;
             timer.text = ((int)timeLeft).ToString();
+            wordsPerMinute.text = "WPM " + ((int)Math.Round(zombiesKilled / (totalTime / 60))).ToString();
         }
+        else if (zombiesDone) { totalTime += deltaTime; wordsPerMinute.text = "WPM " + ((int)Math.Round(zombiesKilled / (totalTime / 60))).ToString(); }
 
-        if(zombiesDone == true)
+
+        if (zombiesDone == true)
             if (isRoundOver()) isWaveOngoing = false;
         
     }
@@ -130,7 +140,7 @@ public class WaveManager : MonoBehaviour
             buffPercent = (float)(0.01 * ((2200 / -currentWave) + 90));
         float numBuff = baseZombies * buffPercent;
 
-        waveNumber.text = numFlimsy.ToString() + "\n" + numBasic.ToString() + "\n" + numFatty.ToString() + "\n" + numBuff.ToString();
+        //waveNumber.text = numFlimsy.ToString() + "\n" + numBasic.ToString() + "\n" + numFatty.ToString() + "\n" + numBuff.ToString();
 
         //StartCoroutine(startSpawning(ZombieType.Flimsy, numFlimsy));
         StartCoroutine(startSpawning(ZombieType.Basic, numBasic));
@@ -153,5 +163,7 @@ public class WaveManager : MonoBehaviour
         zombiesDone = true;
 
     }
+
+    public static void zombieDied() => zombiesKilled += 1;
 
 }
