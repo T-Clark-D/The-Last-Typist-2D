@@ -16,7 +16,7 @@ public class WaveManager : MonoBehaviour
     public float timeLeft;
     public bool isWaveOngoing = false;
 
-    static int zombiesKilled = 0;
+    static int totalLetters = 0;
     public float totalTime = 0;
 
     public bool zombiesDone = false;
@@ -60,9 +60,9 @@ public class WaveManager : MonoBehaviour
             timeLeft -= deltaTime;
             totalTime += deltaTime;
             timer.text = ((int)timeLeft).ToString();
-            wordsPerMinute.text = "WPM " + ((int)Math.Round(zombiesKilled / (totalTime / 60))).ToString();
+            wordsPerMinute.text = "WPM " + ((int)Math.Round((totalLetters / 5) / (totalTime / 60))).ToString();
         }
-        else if (zombiesDone) { totalTime += deltaTime; wordsPerMinute.text = "WPM " + ((int)Math.Round(zombiesKilled / (totalTime / 60))).ToString(); }
+        else if (zombiesDone) { totalTime += deltaTime; wordsPerMinute.text = "WPM " + ((int)Math.Round((totalLetters / 5) / (totalTime / 60))).ToString(); }
 
 
         if (zombiesDone == true)
@@ -79,6 +79,8 @@ public class WaveManager : MonoBehaviour
         yield return new WaitForSeconds(3);
         waveNumber.text = "";
         timeLeft = roundTime;
+        totalTime = 0;
+        totalLetters = 0;
         zombieTime();
     }
 
@@ -164,6 +166,6 @@ public class WaveManager : MonoBehaviour
 
     }
 
-    public static void zombieDied() => zombiesKilled += 1;
+    public static void zombieDied(int letters) => totalLetters += letters;
 
 }

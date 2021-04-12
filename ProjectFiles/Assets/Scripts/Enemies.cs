@@ -97,7 +97,7 @@ public abstract class Enemies : Targetable {
         audioManager.Play("Shotgun");
         audioManager.Play("Zombie Death");
         isDead = true;
-        WaveManager.zombieDied();
+        WaveManager.zombieDied(targetWord.Length);
         Destroy(anim);
         ragDollTRansform();
         //var emission = head.GetChild(3).GetComponent<ParticleSystem>().emission;
