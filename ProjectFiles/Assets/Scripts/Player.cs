@@ -64,7 +64,7 @@ public class Player : MonoBehaviour
             }
         } else {
             //keeps text instance above player when moved by enemies 
-            textInstance.transform.position = transform.position + new Vector3(0, 3, 0);
+            textInstance.transform.position = transform.position + new Vector3(0, 4.5f, 0);
             //check Space toggle
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -151,7 +151,7 @@ public class Player : MonoBehaviour
         textbox = textInstance.GetComponent<Text>();
         textbox.text = "";
         //places the text above the head
-        textInstance.transform.position = transform.position + new Vector3(0, 3, 0);
+        textInstance.transform.position = transform.position + new Vector3(0, 4.5f, 0);
 
     }
 
