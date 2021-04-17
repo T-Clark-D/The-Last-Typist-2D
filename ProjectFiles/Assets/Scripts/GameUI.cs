@@ -1,24 +1,56 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour {
     Player player;
-	// Use this for initialization
-	void Start () {
+
+    public Text timer;
+    public Text waveNumber;
+    public Text wordsPerMinute;
+
+    public Image health1;
+    public Image health2;
+    public Image health3;
+    public Image health4;
+    public Image health5;
+
+    public Sprite[] blood;
+
+    // Use this for initialization
+    void Start () {
         player = FindObjectOfType<Player>();
         player.OnPlayerDeath += GameOver;
+        player.DamageTaken += TakeDamage;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
 	}
-    void DrawHealthBar()
+    void TakeDamage()
     {
-        //to do Draw Healthbar
+        switch (player.health)
+        {
+            case 0:
+                health5.sprite = blood[1];
+                break;
+            case 1:
+                health4.sprite = blood[1];
+                break;
+            case 2:
+                health3.sprite = blood[1];
+                break;
+            case 3:
+                health2.sprite = blood[1];
+                break;
+            case 4:
+                health1.sprite = blood[1];
+                break;
+        }
     } 
     public void GameOver()
     {
-        //to do game over UI
+        waveNumber.text = "GAME OVER";
     }
 }

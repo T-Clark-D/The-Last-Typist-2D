@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using System.Collections.Generic;
-
+using System.Collections;
 
 public class Player : MonoBehaviour
 {
@@ -26,6 +26,8 @@ public class Player : MonoBehaviour
     public event Action DamageTaken;
     public event Action OnPlayerDeath;
 
+    public bool invul = false;
+
     private Animator anim;
     private Rigidbody2D RB;
     // Use this for initialization
@@ -40,7 +42,7 @@ public class Player : MonoBehaviour
         RB = GetComponent<Rigidbody2D>();
         anim = GetComponentInChildren<Animator>();
         //SR = GetComponent<SpriteRenderer>();
-        UIUpdates();
+        //UIUpdates();
         canvasObj = GameObject.Find("Canvas");
         audioManager = FindObjectOfType<AudioManager>();
     }
@@ -74,16 +76,21 @@ public class Player : MonoBehaviour
             FindMatchingTarget();
             AimAtTarget();
         }
-    }
-    //TODO
-    void UIUpdates()
-    {
         if (health <= 0)
         {
             OnPlayerDeath();
             Destroy(gameObject);
         }
     }
+    //TODO
+    /*void UIUpdates()
+    {
+        if (health <= 0)
+        {
+            OnPlayerDeath();
+            Destroy(gameObject);
+        }
+    }*/
 
     void Movement()
     {
@@ -240,10 +247,23 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        GameObject test = collision.gameObject;
-        aimDirection = new Vector3(test.transform.position.x, test.transform.position.y, 0) - new Vector3(transform.position.x, transform.position.y, 0);
-        RB.AddForce(-aimDirection.normalized * 60, ForceMode2D.Impulse);
-        health -= 1;
+        if (invul == false)
+        {
+            StartCoroutine("IFrames");
+            GameObject test = collision.gameObject;
+            aimDirection = new Vector3(test.transform.position.x, test.transform.position.y, 0) - new Vector3(transform.position.x, transform.position.y, 0);
+            RB.AddForce(-aimDirection.normalized * 60, ForceMode2D.Impulse);
+            health -= 1;
+            audioManager.Play("Oof");
+            DamageTaken();
+        }
+    }
+
+    IEnumerator IFrames()
+    {
+        invul = true;
+        yield return new WaitForSeconds(2);
+        invul = false;
     }
 }
 

@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 public class WaveManager : MonoBehaviour
 {
-    readonly float roundTime = 5;
+    readonly float roundTime = 60;
 
     public Text timer;
     public Text waveNumber;
@@ -146,7 +146,7 @@ public class WaveManager : MonoBehaviour
 
         //StartCoroutine(startSpawning(ZombieType.Flimsy, numFlimsy));
         StartCoroutine(startSpawning(ZombieType.Basic, numBasic));
-        //StartCoroutine(startSpawning(ZombieType.Fatty, numFatty));
+        StartCoroutine(startSpawning(ZombieType.Fatty, numFatty));
         //StartCoroutine(startSpawning(ZombieType.Buff, numBuff));
     }
 
