@@ -206,8 +206,9 @@ public class Player : MonoBehaviour
 
     private void applyKnockback()
     {       
-        RB.AddForce(-aimDirection.normalized * 60, ForceMode2D.Impulse); 
-        currentTarget.head.GetComponent<Rigidbody2D>().AddForce(aimDirection.normalized * 120, ForceMode2D.Impulse);
+        RB.AddForce(-aimDirection.normalized * 60, ForceMode2D.Impulse);
+        currentTarget.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+        currentTarget.GetComponent<Rigidbody2D>().AddForce(aimDirection.normalized * 120, ForceMode2D.Impulse);
     }
 
     void AimAtTarget()
