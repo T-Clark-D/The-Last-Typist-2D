@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 public class WaveManager : MonoBehaviour
 {
-    readonly float roundTime = 60;
+    readonly float roundTime = 5;
 
     public Text timer;
     public Text waveNumber;
@@ -29,6 +29,7 @@ public class WaveManager : MonoBehaviour
 
     public GameObject BasicZombiePrefab;
     public GameObject FattyZombiePrefab;
+    public GameObject player;
 
     AudioManager audioManager;
 
@@ -87,13 +88,56 @@ public class WaveManager : MonoBehaviour
     void spawnZombie(ZombieType type)
     {
         GameObject zombieInstance;
+        float x = player.transform.position.x;
+        float y = player.transform.position.y;
+
+        float spawnX = 0;
+        float spawnY = 0;
+        switch (UnityEngine.Random.Range(1, 3))
+        {
+            case 1:
+                do
+                {
+                    spawnX = UnityEngine.Random.Range(-47, 44);
+                }
+                while (spawnX > x - 20 && spawnX < x + 20);
+                switch (UnityEngine.Random.Range(1, 3))
+                {
+                    case 1:
+                        spawnY = -54;
+                        break;
+                    case 2:
+                        spawnY = -4;
+                        break;
+                }
+                break;
+            case 2:
+                do
+                {
+                    spawnY = UnityEngine.Random.Range(-54, -4);
+                }
+                while (spawnY > y - 20 && spawnY < y + 20);
+                switch (UnityEngine.Random.Range(1, 3))
+                {
+                    case 1:
+                        spawnX = -47;
+                        break;
+                    case 2:
+                        spawnX = 44;
+                        break;
+                }
+                break;
+        }
+
+        waveNumber.text = "X: " + spawnX.ToString() + "\nY: " + spawnY.ToString();
+
         switch (type)
         {
             case ZombieType.Basic:
-                zombieInstance = (GameObject)Instantiate(BasicZombiePrefab, new Vector3(UnityEngine.Random.Range(-40, 40), Random.Range(-46, -5), 0), Quaternion.identity);
+                zombieInstance = (GameObject)Instantiate(BasicZombiePrefab, new Vector3(spawnX, spawnY, 0), Quaternion.identity);
                 break;
             case ZombieType.Fatty:
-                zombieInstance = (GameObject)Instantiate(FattyZombiePrefab, new Vector3(UnityEngine.Random.Range(-40, 40), Random.Range(-46, -5), 0), Quaternion.identity);
+                zombieInstance = (GameObject)Instantiate(FattyZombiePrefab, new Vector3(spawnX, spawnY, 0), Quaternion.identity);
                 break;
         }
     }
