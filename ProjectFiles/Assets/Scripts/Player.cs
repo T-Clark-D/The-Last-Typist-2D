@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
     public event Action OnPlayerDeath;
 
     public bool invulnerability = false;
+    public bool stopInput = false;
 
     private Animator anim;
     private Rigidbody2D RB;
@@ -54,10 +55,13 @@ public class Player : MonoBehaviour
     {
         if (!CombatMode)
         {
-            Movement();
-            Vector3 newPosition = transform.position;
-            newPosition.z = transform.position.y;
-            transform.position = newPosition;
+            if(stopInput == false)
+            {
+                Movement();
+                Vector3 newPosition = transform.position;
+                newPosition.z = transform.position.y;
+                transform.position = newPosition;
+            }
 
             //check Space toggle
             if (Input.GetKeyDown(KeyCode.Space))
@@ -72,7 +76,9 @@ public class Player : MonoBehaviour
             {
                 SwitchToMovementMode();
             }
+
             GetTextInput();
+
             FindMatchingTarget();
             AimAtTarget();
         }
@@ -251,9 +257,11 @@ public class Player : MonoBehaviour
         GameObject enemyObject = collision.gameObject;
         if (invulnerability == false && enemyObject.tag == "Enemy")
         {
+            invulnerability = true;
             StartCoroutine("IFrames");
             
             aimDirection = new Vector3(enemyObject.transform.position.x, enemyObject.transform.position.y, 0) - new Vector3(transform.position.x, transform.position.y, 0);
+            stopInput = true;
             RB.AddForce(-aimDirection.normalized * 60, ForceMode2D.Impulse);
             health -= 1;
            
@@ -268,16 +276,18 @@ public class Player : MonoBehaviour
         bodySpriteRenderers = gameObject.GetComponentsInChildren<SpriteRenderer>();
         foreach (SpriteRenderer rend in bodySpriteRenderers)
             rend.color = Color.red;
-        invulnerability = true;
+        yield return new WaitForSeconds(0.25f);
+        stopInput = false;
         for (int i = 0; i < 2; i++) { 
-        yield return new WaitForSeconds(0.5f);
-        foreach (SpriteRenderer rend in bodySpriteRenderers)
-            rend.color = Color.grey;
-        yield return new WaitForSeconds(0.5f);
-        foreach (SpriteRenderer rend in bodySpriteRenderers)
-            rend.color = Color.white;
-    }
-     
+            yield return new WaitForSeconds(0.25f);
+            foreach (SpriteRenderer rend in bodySpriteRenderers)
+                rend.color = Color.grey;
+            yield return new WaitForSeconds(0.5f);
+            foreach (SpriteRenderer rend in bodySpriteRenderers)
+                rend.color = Color.white;
+            yield return new WaitForSeconds(0.25f);
+        }
+
         invulnerability = false;
     }
 }
