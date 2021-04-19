@@ -248,10 +248,11 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (invulnerability == false)
+        GameObject enemyObject = collision.gameObject;
+        if (invulnerability == false && enemyObject.tag == "Enemy")
         {
             StartCoroutine("IFrames");
-            GameObject enemyObject = collision.gameObject;
+            
             aimDirection = new Vector3(enemyObject.transform.position.x, enemyObject.transform.position.y, 0) - new Vector3(transform.position.x, transform.position.y, 0);
             RB.AddForce(-aimDirection.normalized * 60, ForceMode2D.Impulse);
             health -= 1;
