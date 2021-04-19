@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
     public event Action DamageTaken;
     public event Action OnPlayerDeath;
 
-    public bool invul = false;
+    public bool invulnerability = false;
 
     private Animator anim;
     private Rigidbody2D RB;
@@ -247,13 +247,14 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (invul == false)
+        if (invulnerability == false)
         {
             StartCoroutine("IFrames");
-            GameObject test = collision.gameObject;
-            aimDirection = new Vector3(test.transform.position.x, test.transform.position.y, 0) - new Vector3(transform.position.x, transform.position.y, 0);
+            GameObject enemyObject = collision.gameObject;
+            aimDirection = new Vector3(enemyObject.transform.position.x, enemyObject.transform.position.y, 0) - new Vector3(transform.position.x, transform.position.y, 0);
             RB.AddForce(-aimDirection.normalized * 60, ForceMode2D.Impulse);
             health -= 1;
+           
             audioManager.Play("Oof");
             DamageTaken();
         }
@@ -261,9 +262,21 @@ public class Player : MonoBehaviour
 
     IEnumerator IFrames()
     {
-        invul = true;
-        yield return new WaitForSeconds(2);
-        invul = false;
+        SpriteRenderer[] bodySpriteRenderers;
+        bodySpriteRenderers = gameObject.GetComponentsInChildren<SpriteRenderer>();
+        foreach (SpriteRenderer rend in bodySpriteRenderers)
+            rend.color = Color.red;
+        invulnerability = true;
+        for (int i = 0; i < 2; i++) { 
+        yield return new WaitForSeconds(0.5f);
+        foreach (SpriteRenderer rend in bodySpriteRenderers)
+            rend.color = Color.grey;
+        yield return new WaitForSeconds(0.5f);
+        foreach (SpriteRenderer rend in bodySpriteRenderers)
+            rend.color = Color.white;
+    }
+     
+        invulnerability = false;
     }
 }
 
