@@ -94,9 +94,10 @@ public abstract class Enemies :Targetable {
     {
         isDead = true;
         Destroy(anim);
-        ragDollTRansform();
+        //temporarily deprecated
+        //ragDollTRansform();
         //var emission = head.GetChild(3).GetComponent<ParticleSystem>().emission;
-       // emission.enabled = true;
+        //emission.enabled = true;
         head.GetComponentInChildren<ParticleSystem>().Play();
         head.GetComponent<SpriteRenderer>().enabled = false;
         SpriteRenderer[] HeadRenderers = head.GetComponentsInChildren<SpriteRenderer>();
