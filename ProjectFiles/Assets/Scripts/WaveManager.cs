@@ -16,7 +16,7 @@ public class WaveManager : MonoBehaviour
     public float timeLeft;
     public bool isWaveOngoing = false;
 
-    static int totalLetters = 0;
+    static float totalLetters = 0;
     public float totalTime = 0;
 
     public bool zombiesDone = false;
