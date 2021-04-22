@@ -47,8 +47,8 @@ public class WaveManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        currentWave = 15;
         audioManager = FindObjectOfType<AudioManager>();
-        currentWave = 0;
         StartCoroutine("InitiateNextWave");
     }
 
@@ -112,14 +112,14 @@ public class WaveManager : MonoBehaviour
                         spawnY = -54;
                         break;
                     case 2:
-                        spawnY = -4;
+                        spawnY = -10;
                         break;
                 }
                 break;
             case 2:
                 do
                 {
-                    spawnY = UnityEngine.Random.Range(-54, -4);
+                    spawnY = UnityEngine.Random.Range(-54, -10);
                 }
                 while (spawnY > y - 20 && spawnY < y + 20);
                 switch (UnityEngine.Random.Range(1, 3))
@@ -134,7 +134,7 @@ public class WaveManager : MonoBehaviour
                 break;
         }
 
-        waveNumber.text = "X: " + spawnX.ToString() + "\nY: " + spawnY.ToString();
+        //waveNumber.text = "X: " + spawnX.ToString() + "\nY: " + spawnY.ToString();
 
         switch (type)
         {

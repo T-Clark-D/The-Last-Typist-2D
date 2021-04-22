@@ -100,8 +100,7 @@ public abstract class Enemies : Targetable {
     {
         GetPoints();
 
-        audioManager.Play("Shotgun");
-        audioManager.Play("Zombie Death");
+        PlayDeathSounds();
         isDead = true;
         WaveManager.zombieDied(targetWord.Length);
         Destroy(anim);
@@ -132,6 +131,55 @@ public abstract class Enemies : Targetable {
         colliders = gameObject.GetComponentsInChildren<BoxCollider2D>();
         foreach (BoxCollider2D box in colliders)
             box.enabled = true;
+    }
+
+    public void PlayDeathSounds()
+    {
+        float volume = 0;
+        switch (type)
+        {
+            case WaveManager.ZombieType.Flimsy:
+                volume = 0.4f;
+                break;
+            case WaveManager.ZombieType.Basic:
+                volume = 0.6f;
+                break;
+            case WaveManager.ZombieType.Fatty:
+                volume = 0.8f;
+                break;
+            case WaveManager.ZombieType.Buff:
+                volume = 1f;
+                break;
+        }
+        audioManager.Play("Shotgun");
+        switch (UnityEngine.Random.Range(1,7))
+        {
+            case 1:
+                audioManager.sounds[3].source.volume = volume;
+                audioManager.Play("Zombie Death");
+                break;
+            case 2:
+                audioManager.sounds[13].source.volume = volume;
+                audioManager.Play("Head Crush 1");
+                break;
+            case 3:
+                audioManager.sounds[14].source.volume = volume;
+                audioManager.Play("Head Crush 2");
+                break;
+            case 4:
+                audioManager.sounds[15].source.volume = volume;
+                audioManager.Play("Head Crush 3");
+                break;
+            case 5:
+                audioManager.sounds[16].source.volume = volume;
+                audioManager.Play("Head Crush 4");
+                break;
+            case 6:
+                audioManager.sounds[17].source.volume = volume;
+                audioManager.Play("Head Crush 5");
+                break;
+        }
+        
     }
 
 }
