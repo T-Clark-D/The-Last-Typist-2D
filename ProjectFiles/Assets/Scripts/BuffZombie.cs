@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class BasicZombie : Enemies 
+public class BuffZombie : Enemies
 {
-    void Start () 
+    void Start()
     {
         type = WaveManager.ZombieType.Basic;
         targetHeadOffset = new Vector3(0, 1.5f, 0);
@@ -12,7 +12,7 @@ public class BasicZombie : Enemies
         head = transform.GetChild(0).GetChild(0);
         InitializeEnemy();
         FlipDirection();
-        SetWordLength(3);
+        SetWordLength(5);
         instantiateText();
     }
     void Update()

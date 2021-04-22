@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 public class WaveManager : MonoBehaviour
 {
-    readonly float roundTime = 5;
+    readonly float roundTime = 60;
 
     public Text timer;
     public Text waveNumber;
@@ -31,8 +31,11 @@ public class WaveManager : MonoBehaviour
     public float fattyPercent;
     public float buffPercent;
 
+    public GameObject FlimsyZombiePrefab;
     public GameObject BasicZombiePrefab;
     public GameObject FattyZombiePrefab;
+    public GameObject BuffZombiePrefab;
+
     public GameObject player;
 
     AudioManager audioManager;
@@ -92,7 +95,7 @@ public class WaveManager : MonoBehaviour
 
     void spawnZombie(ZombieType type)
     {
-        GameObject zombieInstance;
+        GameObject zombieInstance = null;
         float x = player.transform.position.x;
         float y = player.transform.position.y;
 
@@ -135,16 +138,22 @@ public class WaveManager : MonoBehaviour
         }
 
         //waveNumber.text = "X: " + spawnX.ToString() + "\nY: " + spawnY.ToString();
-
         switch (type)
         {
+            case ZombieType.Flimsy:
+                zombieInstance = (GameObject)Instantiate(FlimsyZombiePrefab, new Vector3(spawnX, spawnY, 0), Quaternion.identity);
+                break;
             case ZombieType.Basic:
                 zombieInstance = (GameObject)Instantiate(BasicZombiePrefab, new Vector3(spawnX, spawnY, 0), Quaternion.identity);
                 break;
             case ZombieType.Fatty:
                 zombieInstance = (GameObject)Instantiate(FattyZombiePrefab, new Vector3(spawnX, spawnY, 0), Quaternion.identity);
                 break;
+            case ZombieType.Buff:
+                zombieInstance = (GameObject)Instantiate(BuffZombiePrefab, new Vector3(spawnX, spawnY, 0), Quaternion.identity);
+                break;
         }
+
     }
 
     bool isRoundOver()
@@ -191,12 +200,12 @@ public class WaveManager : MonoBehaviour
             buffPercent = (float)(0.01 * ((2200 / -currentWave) + 90));
         float numBuff = baseZombies * buffPercent;
 
-        //waveNumber.text = numFlimsy.ToString() + "\n" + numBasic.ToString() + "\n" + numFatty.ToString() + "\n" + numBuff.ToString();
+        waveNumber.text = numFlimsy.ToString() + " : " + numBasic.ToString() + "\n" + numFatty.ToString() + " : " + numBuff.ToString();
 
-        //StartCoroutine(startSpawning(ZombieType.Flimsy, numFlimsy));
+        StartCoroutine(startSpawning(ZombieType.Flimsy, numFlimsy));
         StartCoroutine(startSpawning(ZombieType.Basic, numBasic));
         StartCoroutine(startSpawning(ZombieType.Fatty, numFatty));
-        //StartCoroutine(startSpawning(ZombieType.Buff, numBuff));
+        StartCoroutine(startSpawning(ZombieType.Buff, numBuff));
     }
 
     IEnumerator startSpawning(ZombieType type, float numZombies)

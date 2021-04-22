@@ -9,7 +9,7 @@ public abstract class Enemies : Targetable {
     public bool isLookingRight;
     public GameObject textPrefab;
     public Text enemieTextBox;
-    public int speed = 0;
+    public float speed = 0;
     public bool isDead = false;
     public float scale = 2f;
 
@@ -31,30 +31,36 @@ public abstract class Enemies : Targetable {
     }
     public void FlipDirection()
     {
-        if (player.transform.position.x < transform.position.x)
+        if (player != null)
         {
-            transform.localScale = new Vector3(-1, 1, transform.localScale.z);
-            isLookingRight = false;
-        }
-        else
-        {
-            transform.localScale = new Vector3(1, 1, transform.localScale.z);
-            isLookingRight = true;
+            if (player.transform.position.x < transform.position.x)
+            {
+                transform.localScale = new Vector3(-1, 1, transform.localScale.z);
+                isLookingRight = false;
+            }
+            else
+            {
+                transform.localScale = new Vector3(1, 1, transform.localScale.z);
+                isLookingRight = true;
+            }
         }
     }
     public void flipDirectionOther()
     {
-        if (player.transform.position.x > transform.position.x)
+        if (player != null)
         {
-            //transform.GetComponentInChildren<Transform>().localScale = new Vector3(-1 * scale, scale, transform.localScale.z);
-            transform.localScale = new Vector3(-1*scale, scale, transform.localScale.z);
-            isLookingRight = false;
-        }
-        else
-        {
-            //transform.GetComponentInChildren<Transform>().localScale = new Vector3(-1 * scale, scale, transform.localScale.z);
-            transform.localScale = new Vector3(1 * scale, scale, transform.localScale.z);
-            isLookingRight = true;
+            if (player.transform.position.x > transform.position.x)
+            {
+                //transform.GetComponentInChildren<Transform>().localScale = new Vector3(-1 * scale, scale, transform.localScale.z);
+                transform.localScale = new Vector3(-1 * scale, scale, transform.localScale.z);
+                isLookingRight = false;
+            }
+            else
+            {
+                //transform.GetComponentInChildren<Transform>().localScale = new Vector3(-1 * scale, scale, transform.localScale.z);
+                transform.localScale = new Vector3(1 * scale, scale, transform.localScale.z);
+                isLookingRight = true;
+            }
         }
     }
     public void instantiateText()
@@ -78,9 +84,12 @@ public abstract class Enemies : Targetable {
     }
     public void Movement()
     {
-        float distance = Vector3.Distance(player.transform.position, transform.position);
-        Vector3 unitdirection = (player.transform.position - transform.position).normalized;
-        transform.Translate(unitdirection * speed * Time.deltaTime);
+        if (player != null)
+        {
+            float distance = Vector3.Distance(player.transform.position, transform.position);
+            Vector3 unitdirection = (player.transform.position - transform.position).normalized;
+            transform.Translate(unitdirection * speed * Time.deltaTime);
+        }
     }
     public void TargetedText(int textLength)
     {
@@ -92,7 +101,7 @@ public abstract class Enemies : Targetable {
             }
             else if (!isDead)
             {
-                enemieTextBox.text = "<color=red>" + targetWord.Substring(0, textLength) + "</color>" + targetWord.Substring(textLength, wordLength - textLength);
+                enemieTextBox.text = "<color=red>" + targetWord.Substring(0, textLength) + "</color>" + targetWord.Substring(textLength, targetWord.Length - textLength);
             }
         }
     }
@@ -118,6 +127,11 @@ public abstract class Enemies : Targetable {
         Destroy(textPrefabInstance);
         targetWord = "@@@@@@@@@@";
         Destroy(gameObject, 5);
+    }
+
+    public static explicit operator Enemies(GameObject v)
+    {
+        throw new NotImplementedException();
     }
 
     public void ragDollTRansform()
@@ -181,5 +195,4 @@ public abstract class Enemies : Targetable {
         }
         
     }
-
 }
