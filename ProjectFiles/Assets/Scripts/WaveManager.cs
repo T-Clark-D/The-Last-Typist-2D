@@ -95,9 +95,14 @@ public class WaveManager : MonoBehaviour
 
     void spawnZombie(ZombieType type)
     {
+      
         GameObject zombieInstance = null;
-        float x = player.transform.position.x;
-        float y = player.transform.position.y;
+        
+     
+          float  x = player.transform.position.x;
+           float y = player.transform.position.y;
+   
+       
 
         float spawnX = 0;
         float spawnY = 0;
@@ -200,7 +205,7 @@ public class WaveManager : MonoBehaviour
             buffPercent = (float)(0.01 * ((2200 / -currentWave) + 90));
         float numBuff = baseZombies * buffPercent;
 
-        waveNumber.text = numFlimsy.ToString() + " : " + numBasic.ToString() + "\n" + numFatty.ToString() + " : " + numBuff.ToString();
+       // waveNumber.text = numFlimsy.ToString() + " : " + numBasic.ToString() + "\n" + numFatty.ToString() + " : " + numBuff.ToString();
 
         StartCoroutine(startSpawning(ZombieType.Flimsy, numFlimsy));
         StartCoroutine(startSpawning(ZombieType.Basic, numBasic));
