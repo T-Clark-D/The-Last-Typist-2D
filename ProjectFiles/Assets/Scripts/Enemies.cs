@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-
+using System;
 
 public abstract class Enemies : Targetable {
     public int health;
@@ -13,7 +13,11 @@ public abstract class Enemies : Targetable {
     public bool isDead = false;
     public float scale = 2f;
 
+    public WaveManager.ZombieType type;
+
     AudioManager audioManager;
+
+    public static event Action GetPoints;
 
     public void InitializeEnemy()
     {
@@ -94,15 +98,19 @@ public abstract class Enemies : Targetable {
     }
     public void Death()
     {
+        GetPoints();
+
         audioManager.Play("Shotgun");
         audioManager.Play("Zombie Death");
         isDead = true;
         WaveManager.zombieDied(targetWord.Length);
         Destroy(anim);
+
         //temporarily deprecated
         //ragDollTRansform();
         //var emission = head.GetChild(3).GetComponent<ParticleSystem>().emission;
         //emission.enabled = true;
+
         head.GetComponentInChildren<ParticleSystem>().Play();
         head.GetComponent<SpriteRenderer>().enabled = false;
         SpriteRenderer[] HeadRenderers = head.GetComponentsInChildren<SpriteRenderer>();

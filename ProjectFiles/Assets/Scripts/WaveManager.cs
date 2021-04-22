@@ -12,6 +12,10 @@ public class WaveManager : MonoBehaviour
     public Text timer;
     public Text waveNumber;
     public Text wordsPerMinute;
+    public Text score;
+
+    public static int WPM = 0;
+
     public float currentWave;
     public float timeLeft;
     public bool isWaveOngoing = false;
@@ -33,7 +37,7 @@ public class WaveManager : MonoBehaviour
 
     AudioManager audioManager;
 
-    enum ZombieType
+    public enum ZombieType
     {
         Flimsy,
         Basic,
@@ -61,7 +65,8 @@ public class WaveManager : MonoBehaviour
             timeLeft -= deltaTime;
             totalTime += deltaTime;
             timer.text = ((int)timeLeft).ToString();
-            wordsPerMinute.text = "WPM " + ((int)Math.Round((totalLetters / 5) / (totalTime / 60))).ToString();
+            WPM = ((int)Math.Round((totalLetters / 5) / (totalTime / 60)));
+            wordsPerMinute.text = "WPM " + WPM.ToString();
         }
         else if (zombiesDone) { totalTime += deltaTime; wordsPerMinute.text = "WPM " + ((int)Math.Round((totalLetters / 5) / (totalTime / 60))).ToString(); }
 

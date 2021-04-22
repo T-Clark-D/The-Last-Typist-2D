@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
     private Animator anim;
     private Rigidbody2D RB;
     // Use this for initialization
-    Targetable currentTarget;
+    public Targetable currentTarget;
     private Vector3 aimDirection;
     private List<Targetable> targetedInstances;
 

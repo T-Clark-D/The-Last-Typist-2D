@@ -8,6 +8,10 @@ public class GameUI : MonoBehaviour {
     public Text timer;
     public Text waveNumber;
     public Text wordsPerMinute;
+    public Text score;
+
+    public int points = 0;
+    public int pointMod = 0;
 
     public Image health1;
     public Image health2;
@@ -22,12 +26,13 @@ public class GameUI : MonoBehaviour {
         player = FindObjectOfType<Player>();
         player.OnPlayerDeath += GameOver;
         player.DamageTaken += TakeDamage;
-	}
+        Enemies.GetPoints += updatePoints;
+    }
 	
 	// Update is called once per frame
 	void Update () {
-	
-	}
+        
+    }
     void TakeDamage()
     {
         switch (player.health)
@@ -52,5 +57,27 @@ public class GameUI : MonoBehaviour {
     public void GameOver()
     {
         waveNumber.text = "GAME OVER";
+    }
+
+    public void updatePoints()
+    {
+        switch (((Enemies)player.currentTarget).type)
+        {
+            case WaveManager.ZombieType.Flimsy:
+                pointMod = 1;
+                break;
+            case WaveManager.ZombieType.Basic:
+                pointMod = 2;
+                break;
+            case WaveManager.ZombieType.Fatty:
+                pointMod = 3;
+                break;
+            case WaveManager.ZombieType.Buff:
+                pointMod = 4;
+                break;
+        }
+
+        points += pointMod * WaveManager.WPM;
+        score.text = "Score: " + points.ToString();
     }
 }
