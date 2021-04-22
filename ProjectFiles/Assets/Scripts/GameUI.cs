@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameUI : MonoBehaviour {
     Player player;
@@ -19,6 +20,7 @@ public class GameUI : MonoBehaviour {
     public Image health4;
     public Image health5;
 
+    public Animator transition;
     public Sprite[] blood;
 
     // Use this for initialization
@@ -57,9 +59,18 @@ public class GameUI : MonoBehaviour {
     public void GameOver()
     {
         waveNumber.text = "GAME OVER";
-    }
+        StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex - 1));
 
-    public void updatePoints()
+    }
+    IEnumerator LoadLevel(int levelIndex)
+    {
+        yield return new WaitForSeconds(2);
+        transition.SetTrigger("Start");
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene(levelIndex);
+    }
+   
+        public void updatePoints()
     {
         switch (((Enemies)player.currentTarget).type)
         {
