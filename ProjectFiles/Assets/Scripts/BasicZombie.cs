@@ -1,7 +1,10 @@
 using UnityEngine;
 
-public class BasicZombie : Enemies {
-    void Start () {
+public class BasicZombie : Enemies 
+{
+    void Start () 
+    {
+        type = WaveManager.ZombieType.Basic;
         targetHeadOffset = new Vector3(0, 1.5f, 0);
         targetTextOffset = new Vector3(0.5f, 5, 0);
         health = 1;
@@ -21,6 +24,7 @@ public class BasicZombie : Enemies {
             updateTextLocation();
             Movement();
             FlipDirection();
-        } 
+        }
     }
+
 }
