@@ -38,8 +38,6 @@ public class WaveManager : MonoBehaviour
 
     public GameObject player;
 
-    AudioManager audioManager;
-
     public enum ZombieType
     {
         Flimsy,
@@ -51,7 +49,6 @@ public class WaveManager : MonoBehaviour
     void Start()
     {
         setDifficulty();
-        audioManager = FindObjectOfType<AudioManager>();
         StartCoroutine("InitiateNextWave");
     }
 

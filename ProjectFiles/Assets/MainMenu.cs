@@ -20,8 +20,15 @@ public class MainMenu : MonoBehaviour
     public Button difButton;
     int difficultyInt = 1;
 
-    static int whatTheActualFuck;
+    AudioManager audioManager;
 
+    static int difficulty;
+
+    public void Start()
+    {
+        audioManager = FindObjectOfType<AudioManager>();
+        audioManager.Play("Menu Theme", true);
+    }
 
     public void PlayGame()
     {
@@ -69,7 +76,7 @@ public class MainMenu : MonoBehaviour
                 break;
 
         }
-        whatTheActualFuck = difficultyInt;
+        difficulty = difficultyInt;
 
     }
 
@@ -81,6 +88,6 @@ public class MainMenu : MonoBehaviour
     public static int getDifficulty()
     {
         
-        return whatTheActualFuck;
+        return difficulty;
     }
 }
