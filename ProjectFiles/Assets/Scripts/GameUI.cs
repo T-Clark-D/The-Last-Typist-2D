@@ -14,6 +14,9 @@ public class GameUI : MonoBehaviour {
     public int points = 0;
     public int pointMod = 0;
 
+    public Image ESDF;
+    public Image Space;
+
     public Image health1;
     public Image health2;
     public Image health3;
@@ -25,6 +28,8 @@ public class GameUI : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        StartCoroutine("ShowInstructions");
+
         player = FindObjectOfType<Player>();
         player.OnPlayerDeath += GameOver;
         player.DamageTaken += TakeDamage;
@@ -90,5 +95,12 @@ public class GameUI : MonoBehaviour {
 
         points += pointMod * WaveManager.WPM;
         score.text = "Score: " + points.ToString();
+    }
+
+    IEnumerator ShowInstructions()
+    {
+        yield return new WaitForSeconds(20);
+        ESDF.transform.localScale = Vector3.zero;
+        Space.transform.localScale = Vector3.zero;
     }
 }
