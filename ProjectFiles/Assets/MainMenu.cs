@@ -20,7 +20,9 @@ public class MainMenu : MonoBehaviour
     public Button difButton;
     int difficultyInt = 1;
 
-    
+    static int whatTheActualFuck;
+
+
     public void PlayGame()
     {
         StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex + 1));
@@ -67,11 +69,18 @@ public class MainMenu : MonoBehaviour
                 break;
 
         }
-        
+        whatTheActualFuck = difficultyInt;
+
     }
 
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public static int getDifficulty()
+    {
+        
+        return whatTheActualFuck;
     }
 }

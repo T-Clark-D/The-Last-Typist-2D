@@ -50,7 +50,7 @@ public class WaveManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentWave = 15;
+        setDifficulty();
         audioManager = FindObjectOfType<AudioManager>();
         StartCoroutine("InitiateNextWave");
     }
@@ -230,5 +230,26 @@ public class WaveManager : MonoBehaviour
     }
 
     public static void zombieDied(int letters) => totalLetters += letters;
+
+    public void setDifficulty()
+    {
+        int i = MainMenu.getDifficulty();
+
+        switch (i)
+        {
+            case 1:
+                currentWave = 0;
+                break;
+            case 2:
+                currentWave = 4;
+                break;
+            case 3:
+                currentWave = 9;
+                break;
+            default:
+                print("error");
+                break;
+        }
+    }
 
 }
