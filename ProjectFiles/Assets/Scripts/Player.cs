@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using System.Collections.Generic;
-
+using System.Collections;
 
 public class Player : MonoBehaviour
 {
@@ -26,20 +26,26 @@ public class Player : MonoBehaviour
     public event Action DamageTaken;
     public event Action OnPlayerDeath;
 
+    public bool invulnerability = false;
+    public bool stopInput = false;
+
     private Animator anim;
     private Rigidbody2D RB;
     // Use this for initialization
-    Targetable currentTarget;
+    public Targetable currentTarget;
     private Vector3 aimDirection;
     private List<Targetable> targetedInstances;
+
+    AudioManager audioManager;
     void Start()
     {
         targetedInstances = new List<Targetable>();
         RB = GetComponent<Rigidbody2D>();
         anim = GetComponentInChildren<Animator>();
         //SR = GetComponent<SpriteRenderer>();
-        UIUpdates();
+        //UIUpdates();
         canvasObj = GameObject.Find("Canvas");
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     //TODO
@@ -49,10 +55,13 @@ public class Player : MonoBehaviour
     {
         if (!CombatMode)
         {
-            Movement();
-            Vector3 newPosition = transform.position;
-            newPosition.z = transform.position.y;
-            transform.position = newPosition;
+            if(stopInput == false)
+            {
+                Movement();
+                Vector3 newPosition = transform.position;
+                newPosition.z = transform.position.y;
+                transform.position = newPosition;
+            }
 
             //check Space toggle
             if (Input.GetKeyDown(KeyCode.Space))
@@ -61,26 +70,33 @@ public class Player : MonoBehaviour
             }
         } else {
             //keeps text instance above player when moved by enemies 
-            textInstance.transform.position = transform.position + new Vector3(0, 3, 0);
+            textInstance.transform.position = transform.position + new Vector3(0, 4.5f, 0);
             //check Space toggle
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 SwitchToMovementMode();
             }
+
             GetTextInput();
+
             FindMatchingTarget();
             AimAtTarget();
         }
-    }
-    //TODO
-    void UIUpdates()
-    {
         if (health <= 0)
         {
             OnPlayerDeath();
             Destroy(gameObject);
         }
     }
+    //TODO
+    /*void UIUpdates()
+    {
+        if (health <= 0)
+        {
+            OnPlayerDeath();
+            Destroy(gameObject);
+        }
+    }*/
 
     void Movement()
     {
@@ -134,12 +150,13 @@ public class Player : MonoBehaviour
     void SwitchtoCombatMode()
     {
         CombatMode = true;
+        audioManager.Play("Combat Mode");
         anim.SetBool("isInCombatMode", true);
         //instantiate Gun
         //SR.sprite = combat;
         gunPivotInstance = (GameObject)Instantiate(gunPivotContainer);
         gunPivotInstance.transform.SetParent(transform);
-        gunPivotInstance.transform.position = transform.position + new Vector3(0, -1.5f, 0);
+        gunPivotInstance.transform.position = transform.position + new Vector3(-1f, 0.4f, 0);
         gunPivotInstance.transform.GetChild(0).gameObject.layer = LayerMask.NameToLayer("player");
         textInstance = (GameObject)Instantiate(PlayertextPrefab);
         //textInstance.transform.parent = canvasObj.transform;
@@ -147,7 +164,7 @@ public class Player : MonoBehaviour
         textbox = textInstance.GetComponent<Text>();
         textbox.text = "";
         //places the text above the head
-        textInstance.transform.position = transform.position + new Vector3(0, 3, 0);
+        textInstance.transform.position = transform.position + new Vector3(0, 4.5f, 0);
 
     }
 
@@ -155,6 +172,7 @@ public class Player : MonoBehaviour
     {
         anim.SetBool("isInCombatMode", false);
         CombatMode = false;
+        audioManager.Play("Default Mode");
         //SR.sprite = idle;
         Destroy(textInstance);
         //Destroy(gunInstance);
@@ -194,8 +212,9 @@ public class Player : MonoBehaviour
 
     private void applyKnockback()
     {       
-        RB.AddForce(-aimDirection.normalized * 60, ForceMode2D.Impulse); 
-        currentTarget.head.GetComponent<Rigidbody2D>().AddForce(aimDirection.normalized * 120, ForceMode2D.Impulse);
+        RB.AddForce(-aimDirection.normalized * 60, ForceMode2D.Impulse);
+        currentTarget.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+        currentTarget.GetComponent<Rigidbody2D>().AddForce(aimDirection.normalized * 120, ForceMode2D.Impulse);
     }
 
     void AimAtTarget()
@@ -231,6 +250,45 @@ public class Player : MonoBehaviour
                 gunPivotInstance.transform.localScale = new Vector3(-1, 1, 1);
             }
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        GameObject enemyObject = collision.gameObject;
+        if (invulnerability == false && enemyObject.tag == "Enemy")
+        {
+            invulnerability = true;
+            StartCoroutine("IFrames");
+            
+            aimDirection = new Vector3(enemyObject.transform.position.x, enemyObject.transform.position.y, 0) - new Vector3(transform.position.x, transform.position.y, 0);
+            stopInput = true;
+            RB.AddForce(-aimDirection.normalized * 60, ForceMode2D.Impulse);
+            health -= 1;
+           
+            audioManager.Play("Oof");
+            DamageTaken();
+        }
+    }
+
+    IEnumerator IFrames()
+    {
+        SpriteRenderer[] bodySpriteRenderers;
+        bodySpriteRenderers = gameObject.GetComponentsInChildren<SpriteRenderer>();
+        foreach (SpriteRenderer rend in bodySpriteRenderers)
+            rend.color = Color.red;
+        yield return new WaitForSeconds(0.25f);
+        stopInput = false;
+        for (int i = 0; i < 2; i++) { 
+            yield return new WaitForSeconds(0.25f);
+            foreach (SpriteRenderer rend in bodySpriteRenderers)
+                rend.color = Color.grey;
+            yield return new WaitForSeconds(0.5f);
+            foreach (SpriteRenderer rend in bodySpriteRenderers)
+                rend.color = Color.white;
+            yield return new WaitForSeconds(0.25f);
+        }
+
+        invulnerability = false;
     }
 }
 

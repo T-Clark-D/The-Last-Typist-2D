@@ -1,9 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
 
 public class PauseMenu : MonoBehaviour {
     public static bool GameIsPaused = false;
+
+    public Animator transition;
 
     public GameObject pauseMenuUI;
 
@@ -18,23 +23,35 @@ public class PauseMenu : MonoBehaviour {
         }
     }
 
+    
+
     public void Resume() {
 		pauseMenuUI.SetActive(false);
-    	Time.timeScale = 1f;
     	GameIsPaused = false;
+        Time.timeScale = 1f;
     }
 
 	void Pause() {
     	pauseMenuUI.SetActive(true);
-    	Time.timeScale = 0f;
     	GameIsPaused = true;
+        Time.timeScale = 0f;
     }
 
     public void LoadMenu() {
-
+       
+        Time.timeScale = 100;
+        GameIsPaused = false;
+        StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex - 1));
+        
+    }
+    IEnumerator LoadLevel(int levelIndex)
+    {
+        transition.SetTrigger("Start");
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene(levelIndex);
     }
 
     public void QuitGame() {
-
+        Application.Quit();
     }
 }

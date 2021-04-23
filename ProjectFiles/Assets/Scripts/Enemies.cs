@@ -1,18 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System;
 
-
-public abstract class Enemies :Targetable {
+public abstract class Enemies : Targetable {
     public int health;
     public Animator anim;
     public bool isLookingRight;
     public GameObject textPrefab;
     public Text enemieTextBox;
-    public int speed = 0;
+    public float speed = 0;
     public bool isDead = false;
     public float scale = 2f;
 
+    public WaveManager.ZombieType type;
+
+    AudioManager audioManager;
+
+    public static event Action GetPoints;
 
     public void InitializeEnemy()
     {
@@ -22,33 +27,40 @@ public abstract class Enemies :Targetable {
         canvasObj = GameObject.Find("Canvas");
         isTargetable = true;
         targetPosition = head.position + targetHeadOffset;
+        audioManager = FindObjectOfType<AudioManager>();
     }
     public void FlipDirection()
     {
-        if (player.transform.position.x < transform.position.x)
+        if (player != null)
         {
-            transform.localScale = new Vector3(-1, 1, transform.localScale.z);
-            isLookingRight = false;
-        }
-        else
-        {
-            transform.localScale = new Vector3(1, 1, transform.localScale.z);
-            isLookingRight = true;
+            if (player.transform.position.x < transform.position.x)
+            {
+                transform.localScale = new Vector3(-1, 1, transform.localScale.z);
+                isLookingRight = false;
+            }
+            else
+            {
+                transform.localScale = new Vector3(1, 1, transform.localScale.z);
+                isLookingRight = true;
+            }
         }
     }
     public void flipDirectionOther()
     {
-        if (player.transform.position.x > transform.position.x)
+        if (player != null)
         {
-            //transform.GetComponentInChildren<Transform>().localScale = new Vector3(-1 * scale, scale, transform.localScale.z);
-            transform.localScale = new Vector3(-1*scale, scale, transform.localScale.z);
-            isLookingRight = false;
-        }
-        else
-        {
-            //transform.GetComponentInChildren<Transform>().localScale = new Vector3(-1 * scale, scale, transform.localScale.z);
-            transform.localScale = new Vector3(1 * scale, scale, transform.localScale.z);
-            isLookingRight = true;
+            if (player.transform.position.x > transform.position.x)
+            {
+                //transform.GetComponentInChildren<Transform>().localScale = new Vector3(-1 * scale, scale, transform.localScale.z);
+                transform.localScale = new Vector3(-1 * scale, scale, transform.localScale.z);
+                isLookingRight = false;
+            }
+            else
+            {
+                //transform.GetComponentInChildren<Transform>().localScale = new Vector3(-1 * scale, scale, transform.localScale.z);
+                transform.localScale = new Vector3(1 * scale, scale, transform.localScale.z);
+                isLookingRight = true;
+            }
         }
     }
     public void instantiateText()
@@ -72,9 +84,12 @@ public abstract class Enemies :Targetable {
     }
     public void Movement()
     {
-        float distance = Vector3.Distance(player.transform.position, transform.position);
-        Vector3 unitdirection = (player.transform.position - transform.position).normalized;
-        transform.Translate(unitdirection * speed * Time.deltaTime);
+        if (player != null)
+        {
+            float distance = Vector3.Distance(player.transform.position, transform.position);
+            Vector3 unitdirection = (player.transform.position - transform.position).normalized;
+            transform.Translate(unitdirection * speed * Time.deltaTime);
+        }
     }
     public void TargetedText(int textLength)
     {
@@ -86,17 +101,24 @@ public abstract class Enemies :Targetable {
             }
             else if (!isDead)
             {
-                enemieTextBox.text = "<color=red>" + targetWord.Substring(0, textLength) + "</color>" + targetWord.Substring(textLength, wordLength - textLength);
+                enemieTextBox.text = "<color=red>" + targetWord.Substring(0, textLength) + "</color>" + targetWord.Substring(textLength, targetWord.Length - textLength);
             }
         }
     }
     public void Death()
     {
+        GetPoints();
+
+        PlayDeathSounds();
         isDead = true;
+        WaveManager.zombieDied(targetWord.Length);
         Destroy(anim);
-        ragDollTRansform();
+
+        //temporarily deprecated
+        //ragDollTRansform();
         //var emission = head.GetChild(3).GetComponent<ParticleSystem>().emission;
-       // emission.enabled = true;
+        //emission.enabled = true;
+
         head.GetComponentInChildren<ParticleSystem>().Play();
         head.GetComponent<SpriteRenderer>().enabled = false;
         SpriteRenderer[] HeadRenderers = head.GetComponentsInChildren<SpriteRenderer>();
@@ -104,6 +126,12 @@ public abstract class Enemies :Targetable {
             sr.enabled = false;
         Destroy(textPrefabInstance);
         targetWord = "@@@@@@@@@@";
+        Destroy(gameObject, 5);
+    }
+
+    public static explicit operator Enemies(GameObject v)
+    {
+        throw new NotImplementedException();
     }
 
     public void ragDollTRansform()
@@ -119,4 +147,52 @@ public abstract class Enemies :Targetable {
             box.enabled = true;
     }
 
+    public void PlayDeathSounds()
+    {
+        float volume = 0;
+        switch (type)
+        {
+            case WaveManager.ZombieType.Flimsy:
+                volume = 0.4f;
+                break;
+            case WaveManager.ZombieType.Basic:
+                volume = 0.6f;
+                break;
+            case WaveManager.ZombieType.Fatty:
+                volume = 0.8f;
+                break;
+            case WaveManager.ZombieType.Buff:
+                volume = 1f;
+                break;
+        }
+        audioManager.Play("Shotgun");
+        switch (UnityEngine.Random.Range(1,7))
+        {
+            case 1:
+                audioManager.sounds[3].source.volume = volume;
+                audioManager.Play("Zombie Death");
+                break;
+            case 2:
+                audioManager.sounds[13].source.volume = volume;
+                audioManager.Play("Head Crush 1");
+                break;
+            case 3:
+                audioManager.sounds[14].source.volume = volume;
+                audioManager.Play("Head Crush 2");
+                break;
+            case 4:
+                audioManager.sounds[15].source.volume = volume;
+                audioManager.Play("Head Crush 3");
+                break;
+            case 5:
+                audioManager.sounds[16].source.volume = volume;
+                audioManager.Play("Head Crush 4");
+                break;
+            case 6:
+                audioManager.sounds[17].source.volume = volume;
+                audioManager.Play("Head Crush 5");
+                break;
+        }
+        
+    }
 }

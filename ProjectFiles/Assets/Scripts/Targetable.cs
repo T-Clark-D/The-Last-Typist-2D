@@ -34,4 +34,5 @@ public abstract class Targetable : MonoBehaviour {
         newPosition.z = transform.position.y;
         transform.position = newPosition;
     }
+
 }
