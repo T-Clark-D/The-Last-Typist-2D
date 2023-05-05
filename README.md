@@ -1,6 +1,6 @@
 # The Last Typist 2D
 ## Tactical Typing
-A 2D Typing game where you kill zombies by typing the words above their heads.
+A 2D typing game where you kill zombies by typing the words above their heads.
 ## Title Screen
 ![image](https://user-images.githubusercontent.com/53094076/236564900-80d6c30a-4f22-4849-85c2-20a6f02d4aaf.png)
 ## Controls
